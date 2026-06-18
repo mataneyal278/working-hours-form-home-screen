@@ -52,8 +52,10 @@
       }
 
       .form-loader img {
-        width: clamp(104px, 34vw, 176px);
-        height: clamp(104px, 34vw, 176px);
+        width: 50vmin;
+        height: 50vmin;
+        max-width: 320px;
+        max-height: 320px;
         object-fit: contain;
         animation: water-tower-breathe 1.45s ease-in-out infinite;
         filter: drop-shadow(0 12px 24px rgba(16, 39, 68, 0.2));
@@ -96,7 +98,7 @@
         if (!formLoaded) {
           formLoader.classList.add('visible');
         }
-      }, 2000);
+      }, 1500);
 
       window.__formFrameLoaded = () => {
         formLoaded = true;
