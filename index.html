@@ -33,13 +33,83 @@
         display: block;
         border: 0;
       }
+
+      .form-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        display: grid;
+        place-items: center;
+        background: #f4f7fb;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 180ms ease, visibility 180ms ease;
+      }
+
+      .form-loader.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .form-loader img {
+        width: clamp(104px, 34vw, 176px);
+        height: clamp(104px, 34vw, 176px);
+        object-fit: contain;
+        animation: water-tower-breathe 1.45s ease-in-out infinite;
+        filter: drop-shadow(0 12px 24px rgba(16, 39, 68, 0.2));
+      }
+
+      @keyframes water-tower-breathe {
+        0%,
+        100% {
+          transform: scale(0.84);
+        }
+
+        50% {
+          transform: scale(1.08);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .form-loader img {
+          animation: none;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .form-loader img {
+          width: clamp(190px, 15vw, 280px);
+          height: clamp(190px, 15vw, 280px);
+        }
+      }
     </style>
   </head>
   <body>
+    <div id="form-loader" class="form-loader" aria-hidden="true">
+      <img src="./favicon-192.png?v=20260617-2" alt="">
+    </div>
+    <script>
+      const formLoader = document.getElementById('form-loader');
+      let formLoaded = false;
+
+      const loaderDelay = window.setTimeout(() => {
+        if (!formLoaded) {
+          formLoader.classList.add('visible');
+        }
+      }, 2000);
+
+      window.__formFrameLoaded = () => {
+        formLoaded = true;
+        window.clearTimeout(loaderDelay);
+        formLoader.classList.remove('visible');
+      };
+    </script>
     <iframe
+      id="form-frame"
       title="חשמל חי עם שי"
       src="https://script.google.com/macros/s/AKfycbzVcJ5QUaAwpjQHEdNBijtChBVy9tXoVhGHPjRKVNMl2T4NQTTBEjRsvS8KHyiI60uLaQ/exec"
       allow="clipboard-write"
+      onload="window.__formFrameLoaded()"
     ></iframe>
   </body>
 </html>
