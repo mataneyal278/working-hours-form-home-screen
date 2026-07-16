@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>חישוב חשמל לדיירים</title>
+    <meta name="description" content="צילום מונים, חישוב חשמל והכנת חשבונות לדיירים">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="חישוב חשמל">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="חישוב חשמל">
+    <meta name="theme-color" content="#18324a">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=1">
+    <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png?v=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=1">
+    <link rel="shortcut icon" type="image/png" href="./favicon-32.png?v=1">
+    <link rel="manifest" href="./manifest.webmanifest?v=1">
+    <meta property="og:title" content="חישוב חשמל לדיירים">
+    <meta property="og:image" content="./apple-touch-icon.png?v=1">
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Arial, "Noto Sans Hebrew", sans-serif;
+        background: #f7f7f4;
+        color: #1f2933;
+      }
+
+      * { box-sizing: border-box; }
+
+      html,
+      body,
+      iframe {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+      }
+
+      body {
+        background: #f7f7f4;
+        overflow: hidden;
+      }
+
+      iframe {
+        border: 0;
+        display: block;
+      }
+
+      .loader {
+        align-items: center;
+        background: #f7f7f4;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        inset: 0;
+        justify-content: center;
+        opacity: 1;
+        padding: 24px;
+        position: fixed;
+        transition: opacity 180ms ease, visibility 180ms ease;
+        visibility: visible;
+        z-index: 10;
+      }
+
+      .loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loader img {
+        border-radius: 24%;
+        box-shadow: 0 14px 34px rgba(24, 50, 74, 0.22);
+        height: 132px;
+        object-fit: cover;
+        width: 132px;
+      }
+
+      .loader strong {
+        font-size: 19px;
+      }
+
+      .loader span {
+        color: #66727d;
+        font-size: 14px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .loader { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loader" class="loader" aria-live="polite">
+      <img src="./apple-touch-icon.png?v=1" alt="">
+      <strong>חישוב חשמל לדיירים</strong>
+      <span>טוען את האפליקציה…</span>
+    </div>
+
+    <iframe
+      id="app-frame"
+      title="חישוב חשמל לדיירים"
+      src="https://script.google.com/macros/s/AKfycbzMxvDb0dUq915mtkGmS86qrpvj9sMlx1oZbSLpwIp4khS3okg_TujSsyqjfADK7SSN/exec"
+      allow="camera; clipboard-write"
+    ></iframe>
+
+    <script>
+      const loader = document.getElementById('loader');
+      const appFrame = document.getElementById('app-frame');
+      let loaded = false;
+
+      function hideLoader() {
+        if (loaded) return;
+        loaded = true;
+        loader.classList.add('hidden');
+      }
+
+      appFrame.addEventListener('load', hideLoader);
+      window.setTimeout(hideLoader, 7000);
+    </script>
+  </body>
+</html>
