@@ -11,13 +11,13 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="חישוב חשמל">
     <meta name="theme-color" content="#18324a">
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=1">
-    <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png?v=1">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=1">
-    <link rel="shortcut icon" type="image/png" href="./favicon-32.png?v=1">
-    <link rel="manifest" href="./manifest.webmanifest?v=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=2">
+    <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=2">
+    <link rel="shortcut icon" type="image/png" href="./favicon-32.png?v=2">
+    <link rel="manifest" href="./manifest.webmanifest?v=2">
     <meta property="og:title" content="חישוב חשמל לדיירים">
-    <meta property="og:image" content="./apple-touch-icon.png?v=1">
+    <meta property="og:image" content="./apple-touch-icon.png?v=2">
     <style>
       :root {
         color-scheme: light;
@@ -29,93 +29,106 @@
       * { box-sizing: border-box; }
 
       html,
-      body,
-      iframe {
+      body {
         height: 100%;
         margin: 0;
         width: 100%;
       }
 
       body {
-        background: #f7f7f4;
-        overflow: hidden;
-      }
-
-      iframe {
-        border: 0;
-        display: block;
-      }
-
-      .loader {
         align-items: center;
-        background: #f7f7f4;
+        background:
+          linear-gradient(rgba(14, 30, 45, 0.3), rgba(14, 30, 45, 0.58)),
+          url("./apple-touch-icon.png?v=2") center / cover no-repeat;
+        display: flex;
+        justify-content: center;
+        min-height: 100%;
+        padding:
+          max(24px, env(safe-area-inset-top))
+          max(20px, env(safe-area-inset-right))
+          max(24px, env(safe-area-inset-bottom))
+          max(20px, env(safe-area-inset-left));
+      }
+
+      .launcher {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        border-radius: 24px;
+        box-shadow: 0 20px 54px rgba(8, 22, 34, 0.32);
         display: flex;
         flex-direction: column;
-        gap: 18px;
-        inset: 0;
-        justify-content: center;
-        opacity: 1;
-        padding: 24px;
-        position: fixed;
-        transition: opacity 180ms ease, visibility 180ms ease;
-        visibility: visible;
-        z-index: 10;
+        gap: 16px;
+        max-width: 390px;
+        padding: 30px 24px 26px;
+        text-align: center;
+        width: 100%;
       }
 
-      .loader.hidden {
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .loader img {
+      .launcher img {
         border-radius: 24%;
         box-shadow: 0 14px 34px rgba(24, 50, 74, 0.22);
-        height: 132px;
+        height: 144px;
         object-fit: cover;
-        width: 132px;
+        width: 144px;
       }
 
-      .loader strong {
-        font-size: 19px;
+      h1 {
+        font-size: 25px;
+        line-height: 1.25;
+        margin: 4px 0 0;
       }
 
-      .loader span {
+      p {
         color: #66727d;
-        font-size: 14px;
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 0;
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        .loader { transition: none; }
+      .open-app {
+        align-items: center;
+        background: #1f6f5b;
+        border-radius: 12px;
+        color: #fff;
+        display: inline-flex;
+        font-size: 17px;
+        font-weight: 700;
+        justify-content: center;
+        min-height: 52px;
+        padding: 0 22px;
+        text-decoration: none;
+        width: 100%;
+      }
+
+      .install-note {
+        border-top: 1px solid #e0e5e1;
+        padding-top: 16px;
       }
     </style>
   </head>
   <body>
-    <div id="loader" class="loader" aria-live="polite">
-      <img src="./apple-touch-icon.png?v=1" alt="">
-      <strong>חישוב חשמל לדיירים</strong>
-      <span>טוען את האפליקציה…</span>
-    </div>
-
-    <iframe
-      id="app-frame"
-      title="חישוב חשמל לדיירים"
-      src="https://script.google.com/macros/s/AKfycbzMxvDb0dUq915mtkGmS86qrpvj9sMlx1oZbSLpwIp4khS3okg_TujSsyqjfADK7SSN/exec"
-      allow="camera; clipboard-write"
-    ></iframe>
+    <main class="launcher">
+      <img src="./apple-touch-icon.png?v=2" alt="הבית בשקיעה">
+      <h1>חישוב חשמל לדיירים</h1>
+      <p>האפליקציה נפתחת בחשבון Google המורשה שלך.</p>
+      <a
+        id="openApp"
+        class="open-app"
+        href="https://script.google.com/macros/s/AKfycbzMxvDb0dUq915mtkGmS86qrpvj9sMlx1oZbSLpwIp4khS3okg_TujSsyqjfADK7SSN/exec"
+      >פתח את האפליקציה</a>
+      <p class="install-note">להתקנה באייפון: שיתוף → הוספה למסך הבית. לאחר ההתקנה, האייקון יפתח את האפליקציה ישירות.</p>
+    </main>
 
     <script>
-      const loader = document.getElementById('loader');
-      const appFrame = document.getElementById('app-frame');
-      let loaded = false;
+      const appUrl = document.getElementById('openApp').href;
+      const isStandalone =
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true;
 
-      function hideLoader() {
-        if (loaded) return;
-        loaded = true;
-        loader.classList.add('hidden');
+      if (isStandalone) {
+        window.location.replace(appUrl);
       }
-
-      appFrame.addEventListener('load', hideLoader);
-      window.setTimeout(hideLoader, 7000);
     </script>
   </body>
 </html>
