@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>התקנת חישוב חשמל</title>
+    <meta name="description" content="הוספת חישוב חשמל לדיירים למסך הבית">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="חישוב חשמל">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="חישוב חשמל">
+    <meta name="theme-color" content="#18324a">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png?v=5">
+    <link rel="icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png?v=5">
+    <link rel="shortcut icon" type="image/png" href="../apple-touch-icon.png?v=5">
+    <link rel="manifest" href="../manifest.webmanifest?v=5">
+    <link rel="preconnect" href="https://script.google.com">
+    <link rel="preconnect" href="https://script.googleusercontent.com">
+    <link rel="preconnect" href="https://accounts.google.com">
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Arial, "Noto Sans Hebrew", sans-serif;
+        background: #f7f7f4;
+        color: #1f2933;
+      }
+
+      * { box-sizing: border-box; }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+      }
+
+      body {
+        align-items: center;
+        background:
+          linear-gradient(rgba(14, 30, 45, 0.3), rgba(14, 30, 45, 0.58)),
+          url("../apple-touch-icon.png?v=5") center / cover no-repeat;
+        display: flex;
+        justify-content: center;
+        min-height: 100%;
+        padding:
+          max(24px, env(safe-area-inset-top))
+          max(20px, env(safe-area-inset-right))
+          max(24px, env(safe-area-inset-bottom))
+          max(20px, env(safe-area-inset-left));
+      }
+
+      .installer {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 24px;
+        box-shadow: 0 20px 54px rgba(8, 22, 34, 0.32);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 390px;
+        padding: 30px 24px 26px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .installer > img {
+        border-radius: 24%;
+        box-shadow: 0 14px 34px rgba(24, 50, 74, 0.22);
+        height: 144px;
+        object-fit: cover;
+        width: 144px;
+      }
+
+      h1 {
+        font-size: 25px;
+        line-height: 1.25;
+        margin: 4px 0 0;
+      }
+
+      p {
+        color: #66727d;
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      .install-steps {
+        border-top: 1px solid #e0e5e1;
+        padding-top: 16px;
+      }
+
+      .redirect-loader {
+        align-items: center;
+        background: #f4f7fb;
+        display: none;
+        flex-direction: column;
+        gap: 18px;
+        inset: 0;
+        justify-content: center;
+        position: fixed;
+        z-index: 10;
+      }
+
+      .standalone .installer { display: none; }
+      .standalone .redirect-loader { display: flex; }
+
+      .tower-mark {
+        animation: tower-breathe 1.45s ease-in-out infinite;
+        height: min(52vw, 210px);
+        width: min(52vw, 210px);
+      }
+
+      .tower-mark img {
+        height: 100%;
+        object-fit: contain;
+        width: 100%;
+      }
+
+      @keyframes tower-breathe {
+        0%,
+        100% { transform: scale(0.84); }
+        50% { transform: scale(1.08); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .tower-mark { animation: none; }
+      }
+    </style>
+    <script>
+      const APP_URL = 'https://script.google.com/macros/s/AKfycbzMxvDb0dUq915mtkGmS86qrpvj9sMlx1oZbSLpwIp4khS3okg_TujSsyqjfADK7SSN/exec?v=49';
+      const standaloneMode =
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true;
+
+      if (standaloneMode) {
+        document.documentElement.classList.add('standalone');
+      }
+    </script>
+  </head>
+  <body>
+    <main class="installer">
+      <img src="../apple-touch-icon.png?v=5" alt="הבית בשקיעה">
+      <h1>חישוב חשמל לדיירים</h1>
+      <p>זהו מסך ההתקנה הקבוע של האפליקציה.</p>
+      <p class="install-steps">באייפון: לחץ שיתוף → „הוספה למסך הבית”. אל תעבור לכתובת אחרת לפני ההוספה.</p>
+    </main>
+
+    <div class="redirect-loader" aria-live="polite">
+      <div class="tower-mark" aria-hidden="true">
+        <img src="../loader-water-tower.png?v=5" alt="">
+      </div>
+      <strong>חישוב חשמל לדיירים</strong>
+      <span>טוען את האפליקציה…</span>
+    </div>
+
+    <script>
+      if (standaloneMode) {
+        window.setTimeout(() => window.location.replace(APP_URL), 450);
+      }
+    </script>
+  </body>
+</html>
