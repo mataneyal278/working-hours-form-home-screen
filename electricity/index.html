@@ -118,8 +118,33 @@
     </div>
 
     <script>
+      const APP_URL = 'https://script.google.com/macros/s/AKfycbz-eRmVdtf2iytMNsuzqY4TDzyDXopixj83QEdB1dkasS-u0tXLoWtTBB3pO4Eh12cU/exec';
+      const ACCESS_TOKEN_STORAGE_KEY = 'electricity_access_token_v1';
       const formLoader = document.getElementById('formLoader');
       let formLoaded = false;
+
+      function readAccessToken() {
+        try {
+          return localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY) || '';
+        } catch (error) {
+          return '';
+        }
+      }
+
+      window.addEventListener('message', (event) => {
+        if (!event.origin.endsWith('.googleusercontent.com')) return;
+        if (!event.data || event.data.source !== 'electricity-app') return;
+        try {
+          if (event.data.type === 'store-access-token' && event.data.token) {
+            localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, event.data.token);
+          }
+          if (event.data.type === 'clear-access-token') {
+            localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
+          }
+        } catch (error) {
+          // The app can still be used for the current session if storage is unavailable.
+        }
+      });
 
       const loaderDelay = window.setTimeout(() => {
         if (!formLoaded) formLoader.classList.add('visible');
@@ -135,13 +160,19 @@
         window.clearTimeout(loaderFailsafe);
         formLoader.classList.remove('visible');
       };
+
+      const savedAccessToken = readAccessToken();
+      const electricityFrameUrl = new URL(APP_URL);
+      if (savedAccessToken) electricityFrameUrl.searchParams.set('accessToken', savedAccessToken);
+      window.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('electricityFrame').src = electricityFrameUrl.toString();
+      });
     </script>
 
     <div class="frame-viewport">
       <iframe
         id="electricityFrame"
         title="חישוב חשמל לדיירים"
-        src="https://script.google.com/macros/s/AKfycbz-eRmVdtf2iytMNsuzqY4TDzyDXopixj83QEdB1dkasS-u0tXLoWtTBB3pO4Eh12cU/exec"
         allow="clipboard-write"
         onload="window.__electricityFrameLoaded()"
       ></iframe>
