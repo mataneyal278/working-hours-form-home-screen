@@ -128,6 +128,7 @@
       }
     </style>
     <script>
+      const APP_URL = 'https://script.google.com/macros/s/AKfycbzMxvDb0dUq915mtkGmS86qrpvj9sMlx1oZbSLpwIp4khS3okg_TujSsyqjfADK7SSN/exec?v=49';
       const standaloneMode =
         window.matchMedia('(display-mode: standalone)').matches ||
         window.navigator.standalone === true;
@@ -155,7 +156,7 @@
 
     <script>
       if (standaloneMode) {
-        window.setTimeout(() => window.location.replace('../'), 450);
+        window.setTimeout(() => window.location.replace(APP_URL), 450);
       }
     </script>
   </body>
