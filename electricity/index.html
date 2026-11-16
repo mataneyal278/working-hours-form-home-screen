@@ -34,9 +34,22 @@
         overflow: hidden;
       }
 
+      .frame-viewport {
+        inset: 0;
+        overflow: hidden;
+        position: fixed;
+      }
+
       iframe {
         border: 0;
         display: block;
+      }
+
+      @media (min-width: 761px) {
+        iframe {
+          height: calc(100% + 41px);
+          transform: translateY(-41px);
+        }
       }
 
       .form-loader {
@@ -124,12 +137,14 @@
       };
     </script>
 
-    <iframe
-      id="electricityFrame"
-      title="חישוב חשמל לדיירים"
-      src="https://script.google.com/macros/s/AKfycbz-eRmVdtf2iytMNsuzqY4TDzyDXopixj83QEdB1dkasS-u0tXLoWtTBB3pO4Eh12cU/exec"
-      allow="clipboard-write"
-      onload="window.__electricityFrameLoaded()"
-    ></iframe>
+    <div class="frame-viewport">
+      <iframe
+        id="electricityFrame"
+        title="חישוב חשמל לדיירים"
+        src="https://script.google.com/macros/s/AKfycbz-eRmVdtf2iytMNsuzqY4TDzyDXopixj83QEdB1dkasS-u0tXLoWtTBB3pO4Eh12cU/exec"
+        allow="clipboard-write"
+        onload="window.__electricityFrameLoaded()"
+      ></iframe>
+    </div>
   </body>
 </html>
