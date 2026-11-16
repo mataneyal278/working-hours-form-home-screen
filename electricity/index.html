@@ -132,7 +132,10 @@
       }
 
       window.addEventListener('message', (event) => {
-        if (!event.origin.endsWith('.googleusercontent.com')) return;
+        const isGoogleOrigin =
+          event.origin === 'https://script.google.com' ||
+          event.origin.endsWith('.googleusercontent.com');
+        if (!isGoogleOrigin) return;
         if (!event.data || event.data.source !== 'electricity-app') return;
         try {
           if (event.data.type === 'store-access-token' && event.data.token) {
